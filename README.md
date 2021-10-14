@@ -1,4 +1,4 @@
-## SkellyIsMad_Source
+## SkellyIsMad
 
 Source code of my entry to the Mini Jam 66: Sweets.
 
