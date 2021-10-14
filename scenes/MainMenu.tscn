@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=1]
+
+[node name="MainMenu" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -9.1091
+margin_top = -10.8909
+margin_right = 655.891
+margin_bottom = 375.109
+color = Color( 0.160784, 0.0156863, 0.0156863, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 273.255
+margin_top = 217.271
+margin_right = 419.255
+margin_bottom = 265.271
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonNewGame" type="Button" parent="VBoxContainer"]
+margin_right = 146.0
+margin_bottom = 20.0
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonQuit" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 146.0
+margin_bottom = 44.0
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 288.993
+margin_top = 134.839
+margin_right = 433.993
+margin_bottom = 204.839
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "SKELLY IS MAD!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 21.3578
+margin_top = 181.505
+margin_right = 166.358
+margin_bottom = 251.505
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "HOW TO PLAY:
+Move with mouse movement
+
+LEFT MOUSE BUTTON
+Click once: Revolver
+Double click: Shotgun
+Hold: Rifle
+
+RIGHT MOUSE BUTTON
+Hold: Aim and Keep move direction"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 19.7818
+margin_top = 14.3641
+margin_right = 219.782
+margin_bottom = 164.364
+text = "Skelly is mad!
+
+The Apocalypse is here! The demons have attacked Skellys town where he rested in peace. Now Skelly is mad!
+Find the Dark Horseman of the Apocalypse and send him back to hell!"
+autowrap = true
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 496.231
+margin_top = 340.323
+margin_right = 629.231
+margin_bottom = 354.323
+text = "Created by Yuan Solo"
+[connection signal="pressed" from="VBoxContainer/ButtonNewGame" to="." method="_on_ButtonNewGame_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonQuit" to="." method="_on_ButtonQuit_pressed"]

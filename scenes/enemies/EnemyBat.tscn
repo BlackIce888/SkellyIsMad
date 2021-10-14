@@ -1,0 +1,138 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://assets/halloween/vampire_1.png" type="Texture" id=2]
+[ext_resource path="res://assets/sound-fx/enemy_projectile1.wav" type="AudioStream" id=3]
+[ext_resource path="res://scenes/projectiles/ProjectileRound.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 7.81494
+height = 9.07928
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 54, 55, 56, 55 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "walk_left"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 66, 67, 68, 67 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk_right"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 78, 79, 80, 79 ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 319.827
+
+[node name="EnemyBat" type="KinematicBody2D" groups=[
+"enemies",
+]]
+position = Vector2( 914.174, 302.72 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+health = 80
+attack_dmg = 5
+attack_interval = 0.75
+attack_speed = 75.0
+attack_cooldown = 1.0
+speed = Vector2( 50, 50 )
+projectile = ExtResource( 4 )
+rotation_offset = 50.0
+rotation_increment = 20.0
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1.5 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 12
+frame = 78
+
+[node name="ProjectileSpawn" type="Position2D" parent="."]
+position = Vector2( 0, -20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 2 )
+anims/walk_left = SubResource( 3 )
+anims/walk_right = SubResource( 4 )
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+
+[node name="PlayerDetectionBox" type="CollisionShape2D" parent="PlayerDetectionArea"]
+shape = SubResource( 5 )
+
+[node name="HitDetectionArea" type="Area2D" parent="."]
+
+[node name="HitDetectionBox" type="CollisionShape2D" parent="HitDetectionArea"]
+position = Vector2( 0, 1.5 )
+shape = SubResource( 1 )
+
+[node name="RoamTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[node name="SoundEffectPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -16.0
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_exited"]
+[connection signal="area_entered" from="HitDetectionArea" to="." method="_on_HitDetectionArea_projectile_entered"]
+[connection signal="timeout" from="RoamTimer" to="." method="_on_RoamTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
